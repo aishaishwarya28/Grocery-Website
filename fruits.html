@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruits - FreshGro</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background: linear-gradient(to right, rgba(200, 83, 45, 0.8), rgba(3, 20, 35, 0.8)),
+                url('images/fruits-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .fruit-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fruit-heading {
+            text-align: center;
+            font-size: 3rem;
+            color: #c1e510;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow:
+                2px 2px 8px rgba(255, 0, 0, 0.7),
+                -2px -2px 8px rgba(0, 255, 0, 0.7),
+                2px -2px 8px rgba(0, 0, 255, 0.7),
+                -2px 2px 8px rgba(255, 255, 0, 0.7);
+            animation: slideFlow 3s ease-in-out;
+        }
+
+        @keyframes slideFlow {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .fruit-item {
+            background-color: #f0fdf4;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fruit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .fruit-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .fruit-item h4 {
+            margin-bottom: 5px;
+            color: #d05f33;
+            font-size: 1.5rem;
+        }
+
+        .fruit-item p {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .qty-controls button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #531423;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #16a34a;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .add-to-cart:hover {
+            background-color: #155b2f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fruit-container">
+        <h2 class="fruit-heading">Welcome to Fruits Shopping</h2>
+        <div class="fruit-grid" id="fruitGrid">
+            <!-- Items will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        const fruits = [
+            { name: "Apple", price: "₹100 / kg", img: "images/applee.jpg" },
+            { name: "Banana", price: "₹30 / dozen", img: "images/bananaa.jpg" },
+            { name: "Mango", price: "₹120 / kg", img: "images/mango.jpg" },
+            { name: "Grapes", price: "₹80 / kg", img: "images/grapes.jpg" },
+            { name: "Pineapple", price: "₹60 / piece", img: "images/pineapple.jpg" },
+            { name: "Orange", price: "₹50 / kg", img: "images/orange.jpg" },
+            { name: "Papaya", price: "₹40 / piece", img: "images/papaya.jpg" },
+            { name: "Pomegranate", price: "₹70 / piece", img: "images/pomegranate.jpg" },
+            { name: "Watermelon", price: "₹25 / kg", img: "images/watermelon.jpg" },
+            { name: "Strawberry", price: "₹150 / kg", img: "images/strawberry.jpg" },
+            { name: "Kiwi", price: "₹120 / piece", img: "images/kiwi.jpg" },
+            { name: "Blueberry", price: "₹250 / 100g", img: "images/blueberry.jpg" },
+            { name: "Peach", price: "₹80 / kg", img: "images/peach.jpg" },
+            { name: "Plum", price: "₹90 / kg", img: "images/plum.jpg" },
+            { name: "Guava", price: "₹40 / piece", img: "images/guava.jpg" },
+            { name: "Dragon Fruit", price: "₹150 / piece", img: "images/dragonfruit.jpg" },
+            { name: "Apricot", price: "₹150 / kg", img: "images/apricot.jpg" },
+            { name: "Cherries", price: "₹200 / kg", img: "images/cherries.jpg" },
+            { name: "Avocado", price: "₹60 / piece", img: "images/avocado.jpg" },
+            { name: "Sapodilla", price: "₹50 / kg", img: "images/sapodilla.jpg" },
+        ];
+
+        const fruitGrid = document.getElementById("fruitGrid");
+
+        fruits.forEach((fruit, index) => {
+            const item = document.createElement("div");
+            item.classList.add("fruit-item");
+            item.innerHTML = `
+                <img src="${fruit.img}" alt="${fruit.name}">
+                <h4>${fruit.name}</h4>
+                <p>${fruit.price}</p>
+                <div class="qty-controls">
+                    <button onclick="decrease(${index})">-</button>
+                    <span id="qty-${index}">0</span>
+                    <button onclick="increase(${index})">+</button>
+                </div>
+                <button class="add-to-cart" onclick="showQty(${index})">Add to Cart (<span id="cart-${index}">0</span>)</button>
+            `;
+            fruitGrid.appendChild(item);
+        });
+
+        const quantities = new Array(fruits.length).fill(0);
+
+        function increase(i) {
+            quantities[i]++;
+            document.getElementById(`qty-${i}`).innerText = quantities[i];
+        }
+
+        function decrease(i) {
+            if (quantities[i] > 0) {
+                quantities[i]--;
+                document.getElementById(`qty-${i}`).innerText = quantities[i];
+            }
+        }
+
+        function showQty(i) {
+            alert(`${fruits[i].name} quantity in cart: ${quantities[i]}`);
+        }
+    </script>
+</body>
+
+</html>

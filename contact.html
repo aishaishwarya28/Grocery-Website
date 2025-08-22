@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - FreshGro</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e1bcd9, #7a3f6d);
+      margin: 0;
+      padding: 0;
+      color: #1e4620;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 40px;
+      background-color: #ffffffcc;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-heading {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      color: #042424;
+      text-shadow: 1px 1px 0 #fff, 2px 2px 5px rgba(0, 128, 0, 0.2);
+    }
+
+    .contact-info {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .contact-info p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #99cc99;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      height: 120px;
+    }
+
+    .contact-form button {
+      background-color: #0a8224;
+      color: white;
+      font-size: 1rem;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background-color: #c5cf87;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-container">
+    <h2 class="contact-heading">Get in Touch 📬</h2>
+
+    <div class="contact-info">
+      <p><strong>Email:</strong> support@freshgro.com</p>
+      <p><strong>Phone:</strong> +91 98765 43210</p>
+      <p><strong>Address:</strong> #21, Green Street, Bangalore, India</p>
+    </div>
+
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</body>
+</html>

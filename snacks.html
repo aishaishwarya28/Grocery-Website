@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snacks - FreshGro</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: linear-gradient(to right, #fffde7, #fff3e0),
+        url('images/snacks-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #4e342e;
+    }
+
+    .snack-container {
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .snack-heading {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #8B008B;
+      margin-bottom: 30px;
+      font-weight: bold;
+      animation: flowText 2s ease-out;
+      white-space: nowrap;
+      overflow: hidden;
+      text-shadow:
+        3px 3px 0px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.5),
+        5px -5px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes flowText {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .snack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .snack-item {
+      background-color: #ffffffdd;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .snack-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .snack-item h4 {
+      margin-bottom: 5px;
+      color: #2d3b03;
+      font-size: 1.5rem;
+    }
+
+    .snack-item p {
+      margin-bottom: 10px;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 5px;
+    }
+
+    .qty-controls button {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #15a7a7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .add-to-cart {
+      margin-top: 10px;
+      background-color: #7a7a0c;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .add-to-cart:hover {
+      background-color: #95c040;
+    }
+
+    .snack-item:hover {
+      animation: floatItem 0.6s ease;
+    }
+
+    @keyframes floatItem {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="snack-container">
+    <h2 class="snack-heading">Welcome to Snacks Shopping</h2>
+    <div class="snack-grid" id="snackGrid">
+      <!-- Snack cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    const snacks = [
+      { name: "Potato Chips", price: "₹25", img: "images/potatochips.jpg" },
+      { name: "Masala Peanuts", price: "₹30", img: "images/masala peanuts.jpg" },
+      { name: "Samosa Pack", price: "₹40", img: "images/samosa.jpg" },
+      { name: "Veg Puffs", price: "₹35", img: "images/veg puff.jpg" },
+      { name: "Mixture", price: "₹28", img: "images/mixture.jpg" },
+      { name: "Nachos", price: "₹50", img: "images/nachos.jpg" },
+      { name: "Khakra", price: "₹20", img: "images/khakra.jpg" },
+      { name: "Popcorn", price: "₹25", img: "images/popcorn.jpg" },
+      { name: "Chakli", price: "₹30", img: "images/chakli.jpg" },
+      { name: "Mini Kodable", price: "₹35", img: "images/kodable.jpg" },
+      { name: "Bhel Puri", price: "₹40", img: "images/bhelpuri.jpg" },
+      { name: "Banana Chips", price: "₹32", img: "images/bananachips.jpg" },
+      { name: "Cheese Balls", price: "₹45", img: "images/cheeseballs.jpg" },
+      { name: "Aloo Bhujia", price: "₹30", img: "images/bhujia.jpg" },
+      { name: "Corn Sticks", price: "₹35", img: "images/cornsticks.jpg" },
+      { name: "Farsan", price: "₹28", img: "images/farsan.jpg" },
+      { name: "Spicy Sev", price: "₹30", img: "images/sev.jpg" },
+      { name: "Kurkure", price: "₹20", img: "images/kurkure.jpg" },
+      { name: "Namak Para", price: "₹22", img: "images/namakpara.jpg" },
+      { name: "Mathri", price: "₹25", img: "images/mathri.jpg" }
+    ];
+
+    const snackGrid = document.getElementById("snackGrid");
+
+    snacks.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.classList.add("snack-item");
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <h4>${item.name}</h4>
+        <p>${item.price}</p>
+        <div class="qty-controls">
+          <button onclick="decrease(${index})">-</button>
+          <span id="qty-${index}">0</span>
+          <button onclick="increase(${index})">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(${index})">
+          Add to Cart (<span id="cart-${index}">0</span>)
+        </button>
+      `;
+      snackGrid.appendChild(card);
+    });
+
+    const quantities = new Array(snacks.length).fill(0);
+
+    function increase(i) {
+      quantities[i]++;
+      document.getElementById(`qty-${i}`).innerText = quantities[i];
+    }
+
+    function decrease(i) {
+      if (quantities[i] > 0) {
+        quantities[i]--;
+        document.getElementById(`qty-${i}`).innerText = quantities[i];
+      }
+    }
+
+    function addToCart(i) {
+      alert(`${snacks[i].name} quantity in cart: ${quantities[i]}`);
+    }
+  </script>
+</body>
+
+</html>

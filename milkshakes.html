@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milkshakes - FreshGro</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #e1bee7),
+        url('images/milkshakes-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #4a148c;
+    }
+
+    .milkshake-container {
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .milkshake-heading {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #6a1b9a;
+      margin-bottom: 30px;
+      font-weight: bold;
+      animation: flowText 2s ease-out;
+      white-space: nowrap;
+      overflow: hidden;
+      text-shadow:
+        3px 3px 0px rgba(0, 0, 0, 0.2),
+        -3px -3px 5px rgba(255, 255, 255, 0.5),
+        5px -5px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes flowText {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .milkshake-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .milkshake-item {
+      background-color: #ffffffdd;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .milkshake-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .milkshake-item h4 {
+      margin-bottom: 5px;
+      color: #808000;
+      font-size: 1.5rem;
+    }
+
+    .milkshake-item p {
+      margin-bottom: 10px;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 5px;
+    }
+
+    .qty-controls button {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #8B4513;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+
+    .add-to-cart {
+      margin-top: 10px;
+      background-color: #008080;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .add-to-cart:hover {
+      background-color: #40E0D0;
+    }
+
+    .milkshake-item:hover {
+      animation: floatItem 0.6s ease;
+    }
+
+    @keyframes floatItem {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="milkshake-container">
+    <h2 class="milkshake-heading">Welcome to Milkshakes Shopping</h2>
+    <div class="milkshake-grid" id="milkshakeGrid">
+      <!-- Milkshake cards will be injected here -->
+    </div>
+  </div>
+
+  <script>
+    const milkshakes = [
+      { name: "Chocolate Shake", price: "₹60", img: "images/chocolate milkshake.jpg" },
+      { name: "Strawberry Shake", price: "₹55", img: "images/strawberry milkshake.jpg" },
+      { name: "Vanilla Shake", price: "₹50", img: "images/vanilla milkshake.jpg" },
+      { name: "Mango Shake", price: "₹65", img: "images/mango milkshake.jpg" },
+      { name: "Oreo Shake", price: "₹70", img: "images/oreo milkshake.jpg" },
+      { name: "Banana Shake", price: "₹55", img: "images/banana milkshake.jpg" },
+      { name: "Pineapple Shake", price: "₹60", img: "images/pineapple milkshake.jpg" },
+      { name: "Dry Fruit Shake", price: "₹80", img: "images/dryfruit milkshake.jpg" },
+      { name: "KitKat Shake", price: "₹75", img: "images/kitkat milkshake.jpg" },
+      { name: "Blueberry Shake", price: "₹70", img: "images/blueberry milkshake.jpg" },
+      { name: "Butterscotch Shake", price: "₹65", img: "images/butterscotch milkshake.jpg" },
+      { name: "Coffee Shake", price: "₹60", img: "images/coffee milkshake.jpg" },
+      { name: "Rose Shake", price: "₹55", img: "images/rose milkshake.jpg" },
+      { name: "Chikoo Shake", price: "₹60", img: "images/chikoo milkshake.jpg" },
+      { name: "Caramel Shake", price: "₹70", img: "images/caramel milkshake.jpg" },
+      { name: "Hazelnut Shake", price: "₹75", img: "images/hazelnut milkshake.jpg" },
+      { name: "Green Apple Shake", price: "₹65", img: "images/greenapple milkshake.jpg" },
+      { name: "Blackcurrant Shake", price: "₹70", img: "images/blackcurrant milkshake.jpg" },
+      { name: "Mint Shake", price: "₹60", img: "images/mint milkshake.jpg" },
+      { name: "Mango Shake", price: "₹55", img: "images/mango milkshake.jpg" }
+    ];
+
+    const milkshakeGrid = document.getElementById("milkshakeGrid");
+
+    milkshakes.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.classList.add("milkshake-item");
+      card.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <h4>${item.name}</h4>
+        <p>${item.price}</p>
+        <div class="qty-controls">
+          <button onclick="decrease(${index})">-</button>
+          <span id="qty-${index}">0</span>
+          <button onclick="increase(${index})">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart(${index})">
+          Add to Cart (<span id="cart-${index}">0</span>)
+        </button>
+      `;
+      milkshakeGrid.appendChild(card);
+    });
+
+    const quantities = new Array(milkshakes.length).fill(0);
+
+    function increase(i) {
+      quantities[i]++;
+      document.getElementById(`qty-${i}`).innerText = quantities[i];
+    }
+
+    function decrease(i) {
+      if (quantities[i] > 0) {
+        quantities[i]--;
+        document.getElementById(`qty-${i}`).innerText = quantities[i];
+      }
+    }
+
+    function addToCart(i) {
+      alert(`${milkshakes[i].name} quantity in cart: ${quantities[i]}`);
+    }
+  </script>
+</body>
+
+</html>

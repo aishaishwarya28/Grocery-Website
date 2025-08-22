@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vegetables - FreshGro</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background: linear-gradient(to right, rgba(20, 83, 45, 0.8), rgba(3, 20, 35, 0.8)),
+                url('images/vegetables-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        /* Vegetables Page Specific Styles */
+        .veg-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .veg-heading {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7), -3px -3px 10px rgba(255, 0, 0, 0.7);
+            font-weight: bold;
+            animation: slideFlow 3s ease-in-out;
+            animation-iteration-count: 1; /* Ensure it only flows once */
+        }
+
+        @keyframes slideFlow {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .veg-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .veg-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .veg-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .veg-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .veg-item h4 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #14532d;
+        }
+
+        .veg-item p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .qty-controls button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #144e53;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #a31651;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .add-to-cart:hover {
+            background-color: #d46159;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="veg-container">
+        <h2 class="veg-heading">Welcome to Vegetables Shopping</h2>
+        <div class="veg-grid" id="vegGrid">
+            <!-- Items will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        const vegetables = [
+            { name: "Tomato", price: "₹25 / kg", img: "images/Tomatoo.jpg" },
+            { name: "Potato", price: "₹20 / kg", img: "images/potato.jpg" },
+            { name: "Carrot", price: "₹30 / kg", img: "images/carrot.jpg" },
+            { name: "Brinjal", price: "₹25 / kg", img: "images/brinjal.jpg" },
+            { name: "Cauliflower", price: "₹28 / piece", img: "images/cauliflower.jpg" },
+            { name: "Beans", price: "₹35 / kg", img: "images/beans.jpg" },
+            { name: "Cabbage", price: "₹18 / kg", img: "images/cabbage.jpg" },
+            { name: "Spinach", price: "₹15 / bunch", img: "images/spinach.jpg" },
+            { name: "Onion", price: "₹22 / kg", img: "images/onion.jpg" },
+            { name: "Broccoli", price: "₹40 / piece", img: "images/broccoli.jpg" },
+            { name: "Peas", price: "₹35 / kg", img: "images/peas.jpg" },
+            { name: "Capsicum", price: "₹30 / kg", img: "images/capsicum.jpg" },
+            { name: "Green Chili", price: "₹25 / 250g", img: "images/chilli.jpg" },
+            { name: "Ginger", price: "₹28 / 250g", img: "images/ginger.jpg" },
+            { name: "Garlic", price: "₹32 / 250g", img: "images/garlic.jpg" },
+            { name: "Bitter Gourd", price: "₹26 / kg", img: "images/bittergourd.jpg" },
+            { name: "Beetroot", price: "₹25 / kg", img: "images/beetroot.jpg" },
+            { name: "Radish", price: "₹18 / bunch", img: "images/raddish.jpg" },
+            { name: "Bottle Gourd", price: "₹20 / piece", img: "images/bottlegourd.jpg" },
+            { name: "Drumstick", price: "₹30 / bunch", img: "images/drumstick.jpg" }
+        ];
+
+        const vegGrid = document.getElementById("vegGrid");
+
+        vegetables.forEach((veg, index) => {
+            const item = document.createElement("div");
+            item.classList.add("veg-item");
+            item.innerHTML = `
+                <img src="${veg.img}" alt="${veg.name}">
+                <h4>${veg.name}</h4>
+                <p>${veg.price}</p>
+                <div class="qty-controls">
+                    <button onclick="decrease(${index})">-</button>
+                    <span id="qty-${index}">0</span>
+                    <button onclick="increase(${index})">+</button>
+                </div>
+                <button class="add-to-cart" onclick="showQty(${index})">Add to Cart (<span id="cart-${index}">0</span>)</button>
+            `;
+            vegGrid.appendChild(item);
+        });
+
+        const quantities = new Array(vegetables.length).fill(0);
+
+        function increase(i) {
+            quantities[i]++;
+            document.getElementById(`qty-${i}`).textContent = quantities[i];
+            document.getElementById(`cart-${i}`).textContent = quantities[i];
+        }
+
+        function decrease(i) {
+            if (quantities[i] > 0) {
+                quantities[i]--;
+                document.getElementById(`qty-${i}`).textContent = quantities[i];
+                document.getElementById(`cart-${i}`).textContent = quantities[i];
+            }
+        }
+
+        function showQty(i) {
+            alert(`${vegetables[i].name} quantity in cart: ${quantities[i]}`);
+        }
+    </script>
+</body>
+
+</html>

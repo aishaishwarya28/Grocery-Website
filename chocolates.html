@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chocolates - FreshGro</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            background: linear-gradient(to right, #e293da, #021627),
+                url('images/chocolate-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #331a00;
+        }
+
+        .chocolate-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .chocolate-heading {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #930a75;
+            margin-bottom: 30px;
+            font-weight: bold;
+            animation: slideFlow 2s ease-out;
+            white-space: nowrap;
+            overflow: hidden;
+            text-shadow:
+                3px 3px 0px rgba(0, 0, 0, 0.2),
+                -3px -3px 5px rgba(255, 165, 0, 0.5),
+                5px -5px 8px rgba(255, 255, 255, 0.3),
+                -5px 5px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideFlow {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .chocolate-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .chocolate-item {
+            background-color: #fff9f5;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chocolate-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .chocolate-item h4 {
+            margin-bottom: 5px;
+            color: #5b231b;
+            font-size: 1.5rem;
+        }
+
+        .chocolate-item p {
+            margin-bottom: 10px;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 5px;
+        }
+
+        .qty-controls button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #063f35;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #607007;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .add-to-cart:hover {
+            background-color: #319a15;
+        }
+
+        .chocolate-item:hover {
+            animation: jump 0.6s ease;
+        }
+
+        @keyframes jump {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chocolate-container">
+        <h2 class="chocolate-heading">Welcome to Chocolates Shopping</h2>
+        <div class="chocolate-grid" id="chocolateGrid">
+            <!-- Chocolate cards will appear here -->
+        </div>
+    </div>
+
+    <script>
+        const chocolateItems = [
+            { name: "Dairy Milk Chocolate", price: "₹70 / 100g", img: "images/dairy milk.jpg" },
+            { name: "Milkybar Chocolate Bar", price: "₹145 / 250g", img: "images/milkybar.jpg" },
+            { name: "Nestle KitKat Chocolate", price: "₹85 / 100g", img: "images/kitkat.jpg" },
+            { name: "HERSHEY'S KISSES Milk Chocalate", price: "₹40 / bar", img: "images/hershey.jpg" },
+            { name: "Ferorro Rocher Chocalate Box", price: "₹500 / box", img: "images/ferorro.jpg" },
+            { name: "Cadbury 5 Star chocolate", price: "₹60 / pack", img: "images/five star.jpg" },
+            { name: "Hazelnut Chocolate", price: "₹120 / 100g", img: "images/hazelnut.jpg" },
+            { name: "Snickers Chocalate Bar", price: "₹60 / 21g", img: "images/snickers.jpg" },
+            { name: "Galaxy Chocolate", price: "₹95 / 100g", img: "images/galaxy.jpg" },
+            { name: "Dark Chocolate", price: "₹180 / pack", img: "images/dark choco.jpg" },
+            { name: "Chocolate Gift Box", price: "₹299 / box", img: "images/chocolate gift box.jpg" },
+            { name: "Fabelle Chocolate", price: "₹120 / pack", img: "images/fabelle.jpg" },
+            { name: "Caramel Chocolate", price: "₹90 / 100g", img: "images/caramel.jpg" },
+            { name: "Chocolate Syrup", price: "₹130 / bottle", img: "images/choco syrup.jpg" },
+            { name: "Almond Chocolate", price: "₹140 / 100g", img: "images/almond choco.jpg" },
+            { name: "Gems Chocolate", price: "₹60 / pack", img: "images/gems.jpg" },
+            { name: "Bournville Chocolate ", price: "₹160 / pack", img: "images/bournville.jpg" },
+            { name: "Chocolate Fudge", price: "₹90 / piece", img: "images/choco fudge.jpg" },
+            { name: "Belgian Chocolate", price: "₹200 / 100g", img: "images/belgian.jpg" },
+            { name: "Crunchy Chocolate", price: "₹95 / bar", img: "images/crunchy.jpg" }
+        ];
+
+        const chocolateGrid = document.getElementById("chocolateGrid");
+
+        chocolateItems.forEach((item, index) => {
+            const card = document.createElement("div");
+            card.classList.add("chocolate-item");
+            card.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h4>${item.name}</h4>
+                <p>${item.price}</p>
+                <div class="qty-controls">
+                    <button onclick="decrease(${index})">-</button>
+                    <span id="qty-${index}">0</span>
+                    <button onclick="increase(${index})">+</button>
+                </div>
+                <button class="add-to-cart" onclick="showQty(${index})">Add to Cart (<span id="cart-${index}">0</span>)</button>
+            `;
+            chocolateGrid.appendChild(card);
+        });
+
+        const quantities = new Array(chocolateItems.length).fill(0);
+
+        function increase(i) {
+            quantities[i]++;
+            document.getElementById(`qty-${i}`).innerText = quantities[i];
+        }
+
+        function decrease(i) {
+            if (quantities[i] > 0) {
+                quantities[i]--;
+                document.getElementById(`qty-${i}`).innerText = quantities[i];
+            }
+        }
+
+        function showQty(i) {
+            alert(`${chocolateItems[i].name} quantity in cart: ${quantities[i]}`);
+        }
+    </script>
+</body>
+
+</html>
